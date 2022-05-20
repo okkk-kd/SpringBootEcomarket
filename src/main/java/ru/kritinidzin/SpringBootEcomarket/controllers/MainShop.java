@@ -24,6 +24,36 @@ public class MainShop {
         model.addAttribute("products", products);
         return "shop";
     }
+    @GetMapping("/shopFruit")
+    public String shopMainFruit(Model model) {
+        Iterable<Product> products = productRepository.findByCategory("Fruit");
+        model.addAttribute("products", products);
+        return "shop";
+    }
+    @GetMapping("/shopMeat")
+    public String shopMainMeat(Model model) {
+        Iterable<Product> products = productRepository.findByCategory("Meat");
+        model.addAttribute("products", products);
+        return "shop";
+    }
+    @GetMapping("/shopVegetables")
+    public String shopMainVegetables(Model model) {
+        Iterable<Product> products = productRepository.findByCategory("Vegetables");
+        model.addAttribute("products", products);
+        return "shop";
+    }
+    @GetMapping("/shopBakal")
+    public String shopMainBakal(Model model) {
+        Iterable<Product> products = productRepository.findByCategory("Bakal");
+        model.addAttribute("products", products);
+        return "shop";
+    }
+    @GetMapping("/shopChemistry")
+    public String shopMainChemistry(Model model) {
+        Iterable<Product> products = productRepository.findByCategory("Chemistry");
+        model.addAttribute("products", products);
+        return "shop";
+    }
 
     @GetMapping("/shopAdd")
     public String shopAdd(Model model) {
