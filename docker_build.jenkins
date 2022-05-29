@@ -1,9 +1,6 @@
 properties([disableConcurrentBuilds()])
 
 pipeline {
-    agent {
-        label 'admin'
-        }
     triggers { pollSCM('* * * * *') }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
