@@ -3,9 +3,7 @@ package ru.kritinidzin.SpringBootEcomarket.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.kritinidzin.SpringBootEcomarket.models.Product;
 import ru.kritinidzin.SpringBootEcomarket.repositories.ProductRepository;
@@ -58,6 +56,12 @@ public class MainShop {
     @GetMapping("/shopAdd")
     public String shopAdd(Model model) {
         return "adminIndex";
+    }
+
+    @RequestMapping(value = "/shop/{productId}")
+    public String findProductDetail(@PathVariable(value = "productId")Long productId, Model model) {
+        productRepository.findById(productId).ifPresent(o -> model.addAttribute("product", o));
+        return "product-detail";
     }
 
     @PostMapping("/shopAdd")
