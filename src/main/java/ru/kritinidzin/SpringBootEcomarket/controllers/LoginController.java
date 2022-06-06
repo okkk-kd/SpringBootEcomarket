@@ -20,12 +20,11 @@ public class LoginController {
         return "loginUp";
     }
 
-//    @PostMapping("/loginUp")
-//    public String signUpPost(@RequestParam String login,
-//                             @RequestParam String password,
-//                             Model model) {
-//        User user = new User(login, password);
-//        userRepository.save(user);
-//        return "redirect:/";
-//    }
+    @PostMapping("/loginUp")
+    public String signUpPost(@RequestParam String login,
+                             Model model) throws Exception {
+        User user = userService.selectOne(login);
+        System.out.println(user);
+        return "loginUp";
+    }
 }

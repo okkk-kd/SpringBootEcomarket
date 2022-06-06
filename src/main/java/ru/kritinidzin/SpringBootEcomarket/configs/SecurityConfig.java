@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 @Configuration
@@ -24,7 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     private static final String USER_SQL = "SELECT" +
-            " login" +
+            " id," +
+            " login," +
             " password" +
             " FROM" +
             " user" +
@@ -32,7 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             " login = ?";
 
     private static final String ROLE_SQL = "SELECT" +
-            " login" +
+            " id," +
+            " login," +
             " role" +
             " FROM" +
             " user" +
@@ -45,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/loginUp").permitAll()
                 .antMatchers("/signUp").permitAll()
-                .anyRequest().permitAll();
+                .antMatchers("/shopAdd").hasRole("ADMIN")
+                .anyRequest().authenticated();
 
         http.formLogin()
                 .loginProcessingUrl("/loginUp")
@@ -54,6 +58,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("login")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/", true);
+
+        http
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login");
 
         http.csrf().disable();
     }

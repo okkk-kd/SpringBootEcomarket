@@ -1,12 +1,14 @@
 package ru.kritinidzin.SpringBootEcomarket.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.kritinidzin.SpringBootEcomarket.models.User;
 import ru.kritinidzin.SpringBootEcomarket.models.UserDao;
 @Service
 public class UserService {
     @Autowired
+    @Qualifier("UserDaoImpl")
     UserDao userDao;
 
     public Boolean insert(User user) throws Exception {

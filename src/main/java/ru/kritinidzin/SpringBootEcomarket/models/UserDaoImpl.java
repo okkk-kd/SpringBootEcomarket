@@ -17,9 +17,9 @@ public class UserDaoImpl implements UserDao{
     PasswordEncoder passwordEncoder;
     @Override
     public User selectOne(String login) throws Exception {
-        Map<String, Object> map = jdbcTemplate.queryForMap("" +
+        Map<String, Object> map = jdbcTemplate.queryForMap(
                 "SELECT * FROM user" +
-                " WHERE LOGIN=?",
+                " WHERE login=?",
                 login);
         User user = new User();
         user.setLogin((String)map.get("login"));
@@ -34,9 +34,10 @@ public class UserDaoImpl implements UserDao{
         String password = passwordEncoder.encode(user.getPassword());
         int rowNumber = jdbcTemplate.update(
                 "INSERT INTO user(" +
-                        " login" +
-                        " password" +
-                        " role)"
+                        " login," +
+                        " password," +
+                        " role)" +
+                        "VALUES(?, ?, ?)"
                 , user.getLogin()
                 , password
                 , user.getRole());
@@ -48,7 +49,7 @@ public class UserDaoImpl implements UserDao{
         String password = passwordEncoder.encode(user.getPassword());
         int rowNumber = jdbcTemplate.update("UPDATE user" +
                 " SET" +
-                " password=?" +
+                " password=?," +
                 " login=?" +
                 " WHERE id=?"
         , password

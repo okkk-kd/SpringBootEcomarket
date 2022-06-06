@@ -11,15 +11,16 @@ public class User {
     private String login;
     private String password;
     private String role;
-    @OneToMany(targetEntity=Product.class, fetch=FetchType.EAGER)
-    private List<Product> bin;
+//    @OneToMany(targetEntity=Product.class, fetch=FetchType.EAGER)
+//    private List<Product> bin;
 
     public User() {
     }
 
-    public User(String login, String password) {
+    public User(String login, String password, String role) {
         this.login = login;
         this.password = password;
+        this.role = role;
     }
 
     public String getRole() {
@@ -54,7 +55,7 @@ public class User {
         this.password = password;
     }
 
-    public void setBin(List<Product> bin) {
-        this.bin = bin;
-    }
+//    public void setBin(List<Product> bin) {
+//        this.bin = bin;
+//    }
 }
