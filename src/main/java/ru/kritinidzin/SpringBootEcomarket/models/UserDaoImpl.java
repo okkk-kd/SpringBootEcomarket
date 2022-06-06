@@ -60,6 +60,11 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public int deleteOne(Long id) throws DataAccessException {
-        return 0;
+        int rowNumber = jdbcTemplate.update("UPDATE" +
+                " FROM user" +
+                " WHERE id=?"
+                , id);
+
+        return rowNumber;
     }
 }

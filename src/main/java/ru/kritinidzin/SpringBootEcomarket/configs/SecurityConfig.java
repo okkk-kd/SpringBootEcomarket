@@ -25,16 +25,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     private static final String USER_SQL = "SELECT" +
-            " id," +
             " login," +
-            " password" +
+            " password," +
+            " true" +
             " FROM" +
             " user" +
             " WHERE" +
             " login = ?";
 
     private static final String ROLE_SQL = "SELECT" +
-            " id," +
             " login," +
             " role" +
             " FROM" +
@@ -48,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/loginUp").permitAll()
                 .antMatchers("/signUp").permitAll()
-                .antMatchers("/shopAdd").hasRole("ADMIN")
+                .antMatchers("/shop/**").hasRole("USER")
+                .antMatchers("/shopAdd/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
         http.formLogin()

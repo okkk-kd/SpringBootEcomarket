@@ -35,4 +35,13 @@ public class UserService {
 
         return result;
     }
+
+    public boolean deleteOne(Long id) {
+        int rowNumber = userDao.deleteOne(id);
+        boolean result = false;
+        if (rowNumber > 0) {
+            result = true;
+        }
+        return result;
+    }
 }
