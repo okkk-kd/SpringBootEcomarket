@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.kritinidzin.SpringBootEcomarket.models.Product;
 import ru.kritinidzin.SpringBootEcomarket.service.ProductService;
 
-import java.io.IOException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class MainShop {
@@ -54,6 +55,23 @@ public class MainShop {
     @RequestMapping(value = "/shop/{productId}")
     public String findProductDetail(@PathVariable(value = "productId")Long productId, Model model) throws Exception {
         model.addAttribute("product", productService.selectOne(productId));
-        return "product-detail";
+        return "shop";
+    }
+    @RequestMapping(value = "/shop/select/{productId}", params = "addCart")
+    public String selectProductDetail(@PathVariable(value = "productId")String productId,
+                                      Model model,
+                                      HttpServletResponse response) throws Exception {
+        Product product = productService.selectOne(Long.valueOf(productId));
+        model.addAttribute("product", productService.selectOne(Long.valueOf(productId)));
+        Cookie cookie = new Cookie("cart_" + productId, productId);
+        cookie.setMaxAge(7 * 24 * 60 * 60);
+        response.addCookie(cookie);
+
+        return "cart";
+    }
+    public String setCookie() {
+
+
+        return "Username is changed!";
     }
 }
