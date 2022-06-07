@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/loginUp").permitAll()
                 .antMatchers("/signUp").permitAll()
                 .antMatchers("/shop/**").hasRole("USER")
+                .antMatchers("/home/**").hasRole("USER")
                 .antMatchers("/shopAdd/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
@@ -57,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/loginUp")
                 .usernameParameter("login")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/", true);
+                .defaultSuccessUrl("/shopAll", true);
 
         http
                 .logout()

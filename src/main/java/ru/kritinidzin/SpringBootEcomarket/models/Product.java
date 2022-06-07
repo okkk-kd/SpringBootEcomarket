@@ -15,8 +15,6 @@ public class Product {
     private String information;
     private int status;
     private int amount;
-    private byte[] image;
-
     private String category;
 
     public String getCategory() {
@@ -27,25 +25,26 @@ public class Product {
         this.category = category;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
     public Product() {
     }
 
-    public Product(String name, String information, String category, int amount, double price, int status, byte[] image) {
+    public Product(Long id, String name, String information, String category, int amount, double price, int status) {
+        this.id = id;
         this.name = name;
         this.information = information;
         this.category = category;
         this.amount = amount;
         this.price = price;
         this.status = status;
-        this.image = image;
+    }
+
+    public Product(String name, String information, String category, int amount, double price, int status) {
+        this.name = name;
+        this.information = information;
+        this.category = category;
+        this.amount = amount;
+        this.price = price;
+        this.status = status;
     }
 
     public Long getId() {

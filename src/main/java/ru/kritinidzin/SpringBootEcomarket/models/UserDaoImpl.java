@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Repository("UserDaoImpl")
@@ -15,6 +17,7 @@ public class UserDaoImpl implements UserDao{
     JdbcTemplate jdbcTemplate;
     @Autowired
     PasswordEncoder passwordEncoder;
+
     @Override
     public User selectOne(String login) throws Exception {
         Map<String, Object> map = jdbcTemplate.queryForMap(
